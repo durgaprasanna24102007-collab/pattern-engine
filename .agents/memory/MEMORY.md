@@ -1,0 +1,1 @@
+- [Auth token storage keys](auth-keys.md) — localStorage uses `auth_token` and `auth_user`; never dlp_access_token.

@@ -1,0 +1,337 @@
+Build a full-stack web application called **Data Leak Tracker** focused on detecting sensitive data leaks using **regex-based pattern matching**.
+
+The system is NOT a threat intelligence or SIEM platform. It is strictly a **Data Loss Prevention (DLP) scanner** that detects sensitive information leaks in files, logs, and data transfers using customizable regex patterns.
+
+The UI must use a **Light Blue theme** with a modern, clean cybersecurity dashboard style.
+
+---
+
+# Core Purpose
+
+A system that scans:
+
+* Files
+* Text content
+* Uploads
+* Transfers
+* Logs
+
+…and detects sensitive data using **regex patterns defined by administrators**.
+
+It logs detections, alerts users/admins, and blocks or flags sensitive data.
+
+---
+
+# UI/UX Design
+
+* Light Blue theme (#E3F2FD, #BBDEFB, #90CAF9, #2196F3)
+* Clean dashboard layout
+* Sidebar navigation
+* Card-based analytics UI
+* Minimal, enterprise-style design
+* Smooth transitions (Framer Motion optional)
+* Fully responsive design
+* Real-time status indicators
+
+---
+
+# Core Modules
+
+## 1. Regex Pattern Engine (CORE FEATURE)
+
+* Admin can create custom regex patterns
+* Built-in default patterns:
+
+  * Email addresses
+  * Phone numbers
+  * Aadhaar-like IDs (configurable)
+  * Credit card patterns
+  * API keys
+* Pattern management system:
+
+  * Create / Edit / Delete patterns
+  * Enable / Disable patterns
+  * Test regex on sample input
+  * Category tagging (PII, Financial, Credentials, etc.)
+
+---
+
+## 2. File & Data Scanner
+
+* Upload files (txt, pdf, csv, logs)
+* Scan file content using regex patterns
+* Highlight matched sensitive data
+* Show:
+
+  * Pattern matched
+  * Line number
+  * Severity level
+* Scan history per file
+
+---
+
+## 3. Data Leak Detection System
+
+* Detect sensitive data in:
+
+  * Uploaded files
+  * Pasted text
+  * System logs
+* Show detection results in real time
+* Flag risky content
+* Mark severity:
+
+  * Low
+  * Medium
+  * High
+  * Critical
+
+---
+
+## 4. Logging System (CORE)
+
+* Store all scan events
+* Store pattern matches
+* Store user actions
+* Log structure includes:
+
+  * timestamp
+  * user_id
+  * file_id
+  * pattern_id
+  * matched_text
+  * severity
+
+---
+
+## 5. Alert System
+
+* Trigger alerts when sensitive data is found
+* Alert types:
+
+  * UI notification
+  * Email notification (optional placeholder)
+* Admin alert dashboard
+* Alert history with filters
+
+---
+
+## 6. Prevention & Blocking System
+
+* Block file upload if critical patterns detected
+* Allow admin override
+* Soft block (warn user) or hard block (deny upload)
+
+---
+
+## 7. Data Sanitization Module
+
+* Auto-mask detected sensitive data:
+
+  * Example: [abc@example.com](mailto:abc@example.com) → a***@example.com
+* Option to export sanitized file
+* Toggle sanitize-before-save
+
+---
+
+## 8. Cloud Data Protection (Simulation Layer)
+
+* Monitor cloud uploads (simulated)
+* Scan cloud-bound data
+* Flag sensitive content before upload
+
+---
+
+## 9. Login Location Detection
+
+* Track login IP address (mock or real)
+* Geolocation mapping (country/city)
+* Detect unusual login location
+* Login history table
+
+---
+
+## 10. File Access & Transfer History
+
+* Full audit trail:
+
+  * file uploaded
+  * file accessed
+  * file downloaded
+  * file shared
+* Filter by user/file/date
+* Timeline view
+
+---
+
+## 11. Offline Detection Capability
+
+* Cache scan logs locally when offline
+* Sync when back online
+* Show offline mode indicator
+
+---
+
+## 12. Secure Decryption for Scanning
+
+* Detect encrypted files
+* Temporarily decrypt for scanning (simulated logic)
+* Log decryption event
+* Ensure secure re-encryption after scan
+
+---
+
+## 13. Admin Alert System
+
+* Admin dashboard alerts
+* Real-time detection feed
+* Mark alerts as resolved
+* Acknowledge alerts
+
+---
+
+# Authentication
+
+* JWT-based authentication
+* Role-based access:
+
+  * Admin
+  * User
+* Protected routes
+
+---
+
+# Database (IMPORTANT)
+
+Use **PostgreSQL** as the primary database.
+
+## Required Tables:
+
+### users
+
+* id
+* name
+* email
+* password_hash
+* role
+* created_at
+
+### regex_patterns
+
+* id
+* name
+* pattern
+* category
+* severity
+* is_active
+* created_by
+* created_at
+
+### scan_logs
+
+* id
+* user_id
+* file_name
+* file_type
+* scanned_text
+* created_at
+
+### detections
+
+* id
+* scan_id
+* pattern_id
+* matched_text
+* line_number
+* severity
+* created_at
+
+### alerts
+
+* id
+* user_id
+* message
+* severity
+* is_resolved
+* created_at
+
+### file_activity
+
+* id
+* user_id
+* file_name
+* action (upload/access/download/share)
+* timestamp
+
+### login_logs
+
+* id
+* user_id
+* ip_address
+* location
+* device_info
+* timestamp
+
+---
+
+# Backend
+
+* Node.js + Express.js
+* PostgreSQL (via Prisma or Sequelize preferred)
+* REST APIs for:
+
+  * scanning
+  * pattern management
+  * logs
+  * alerts
+
+---
+
+# Frontend
+
+* React.js
+* Tailwind CSS (Light Blue theme)
+* Recharts / Chart.js for analytics
+* Axios for API calls
+* React Router
+
+---
+
+# Pages Required
+
+* Login / Register
+* Dashboard (overview)
+* Scan Engine
+* Regex Pattern Manager
+* Scan History
+* Alerts Center
+* File Activity Tracker
+* Login Location Tracker
+* Settings
+
+---
+
+# Dashboard Analytics
+
+* Total files scanned
+* Total detections
+* Active patterns
+* Alerts triggered
+* Risk level distribution chart
+* Recent scan activity feed
+
+---
+
+# Key Requirement
+
+This is NOT a threat intelligence system.
+
+It is a **Data Leak Detection System based purely on regex pattern scanning and logging.**
+
+Focus on:
+
+* Pattern matching accuracy
+* Fast scanning engine
+* Clean UI dashboards
+* Audit logs
+* Admin control over patterns
