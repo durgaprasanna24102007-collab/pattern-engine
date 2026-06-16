@@ -5,7 +5,8 @@
  * Pattern Engine API specification
  * OpenAPI spec version: 0.1.0
  */
+import type { CapturedEmail } from './capturedEmail';
 
-export interface HealthStatus {
-  status: string;
+export interface MailCatcherResponse {
+  emails: CapturedEmail[];
 }
